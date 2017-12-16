@@ -1,0 +1,5 @@
+*.suo
+/Simple Helpdesk/bin
+/Simple Helpdesk/obj
+/packages/**
+!/packages/repositories.config

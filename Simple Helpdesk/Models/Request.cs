@@ -47,7 +47,7 @@ namespace Simple_Helpdesk.Models
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy H:mm:ss}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
-        public DateTime ModificationTime { get; set; }
+        public DateTime? ModificationTime { get; set; }
 
         /// <summary>
         /// Описание заявки или его текущего изменения
@@ -64,5 +64,14 @@ namespace Simple_Helpdesk.Models
         Solved = 2,
         Returned = 3,
         Closed = 4
+    }
+
+    /// <summary>
+    /// Кортеж для возврата данных post запросом, полученных в представлении CreateRequest
+    /// </summary>
+    public class RequestTuple
+    {
+        public Request request { get; set; }
+        public RequestDescription description { get; set; }
     }
 }

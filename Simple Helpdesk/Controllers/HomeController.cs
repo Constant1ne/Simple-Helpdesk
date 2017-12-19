@@ -15,7 +15,8 @@ namespace Simple_Helpdesk.Controllers
         // GET: /Home/
         [HttpGet]
         public ActionResult Index() {
-            return View();
+            var requests = db.Requests;
+            return View(requests.ToList());
         }
 
         //
@@ -23,6 +24,27 @@ namespace Simple_Helpdesk.Controllers
         [HttpGet]
         public ViewResult CreateRequest() {
             return View();
+        }
+        
+        [HttpPost]
+        public ActionResult CreateRequest(RequestTuple requestTuple) {
+            Request request = requestTuple.request;
+            RequestDescription description = requestTuple.description;
+
+            description.ModificationTime = DateTime.Now;
+            description.RequestID = request;
+            request.Descriptions = new List<RequestDescription>() { description };
+
+            db.Requests.Add(request);
+            db.Descriptions.Add(description);
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult Error(Error error) {
+            return View(error);
         }
     }
 }

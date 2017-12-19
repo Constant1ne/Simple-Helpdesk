@@ -1,8 +1,8 @@
-﻿@model Simple_Helpdesk.Models.Request
+﻿@using Simple_Helpdesk.Models
+@model IEnumerable<Request>
 
 @{
     ViewBag.Title = "База заявок";
-    int i = 0;
 }
 
 <table>
@@ -16,4 +16,17 @@
         <td>(+)Редактирование</td>
         <td>(+)Удаление</td>
     </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>@item.ID</td>
+            <td>@item.Name</td>
+            <td>@item.Descriptions.Last().Status</td>
+            <td>@item.Descriptions.Last().ModificationTime</td>
+            <td>@item.Descriptions.Last().Description</td>
+            <td>(+)История</td>
+            <td>(+)Редактирование</td>
+            <td>(+)Удаление</td>
+        </tr>
+    }
 </table>

@@ -21,6 +21,7 @@
             @Html.LabelFor(model => model.description.Status)
         </div>
         <div class="editor-field">
+            @*переходы в другие состояния заявки в зависимости от текущего*@
             @switch (Model.description.Status) {
                 case RequestStatus.Opened:
                 @Html.DropDownListFor(model => model.description.Status,

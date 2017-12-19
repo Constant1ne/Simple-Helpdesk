@@ -60,14 +60,14 @@ namespace Simple_Helpdesk.Models
 
     public enum RequestStatus
     {
-        Opened = 1,
-        Solved = 2,
-        Returned = 3,
-        Closed = 4
+        Opened = 1, // Открыта
+        Solved = 2, // Решена
+        Returned = 3, // Возвращена
+        Closed = 4 // Закрыта
     }
 
     /// <summary>
-    /// Кортеж для возврата данных post запросом, полученных в представлении CreateRequest
+    /// картеж для возврата данных post запросом, полученных в представлении CreateRequest
     /// </summary>
     public class RequestTuple
     {

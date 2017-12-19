@@ -34,7 +34,7 @@ namespace Simple_Helpdesk.Models
         /// <summary>
         /// Внешний ключ, заявка к которой относится данное описание
         /// </summary>
-        public Request RequestID { get; set; }
+        public int RequestID { get; set; }
 
         /// <summary>
         /// Статус заявки 

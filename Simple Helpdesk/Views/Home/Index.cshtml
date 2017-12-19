@@ -24,8 +24,12 @@
             <td>@item.Descriptions.Last().Status</td>
             <td>@item.Descriptions.Last().ModificationTime</td>
             <td>@item.Descriptions.Last().Description</td>
-            <td>(+)История</td>
-            <td>(+)Редактирование</td>
+            <td>
+                @Html.ActionLink("История изменений", "ChangeLog", new { Id = item.ID })
+            </td>
+            <td>
+                @Html.ActionLink("Редактировать", "UpdateRequest", new { Id = item.ID })
+            </td>
             <td>(+)Удаление</td>
         </tr>
     }

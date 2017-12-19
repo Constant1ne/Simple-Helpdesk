@@ -1,0 +1,32 @@
+﻿@model Simple_Helpdesk.Models.Request
+
+@{
+    ViewBag.Title = "Список изменений";
+}
+<h3>Список изменений от последнего изменения к дате создания</h3>
+<table>
+    <tr>
+        <td>ID</td>
+        <td>Наименование заявка</td>
+        <td>Текущий статус</td>
+        <td>Время последнего редактирования</td>
+        <td>Описание</td>
+    </tr>
+
+    <tr>
+        <td>@Model.ID</td>
+        <td>@Model.Name</td>
+        <td>@Model.Descriptions.Last().Status</td>
+        <td>@Model.Descriptions.Last().ModificationTime</td>
+        <td>@Model.Descriptions.Last().Description</td>
+    </tr>
+    @for (int i = Model.Descriptions.Count - 2; i >= 0; --i) {
+        <tr>
+            <td></td>
+            <td></td>
+            <td>@Model.Descriptions[i].Status</td>
+            <td>@Model.Descriptions[i].ModificationTime</td>
+            <td>@Model.Descriptions[i].Description</td>
+        </tr>
+    }
+</table>

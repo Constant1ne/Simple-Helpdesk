@@ -88,5 +88,16 @@ namespace Simple_Helpdesk.Controllers
             
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public ActionResult RemoveRequest(int Id) {
+            Request request = db.Requests.Where(r => r.ID == Id).FirstOrDefault();
+            if (request == null) {
+                return RedirectToAction("Error", "Home", new Error("Запись с таким идентификатором не найдена, Id = " + Id));
+            }
+            db.Requests.Remove(request);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }

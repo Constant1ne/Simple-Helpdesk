@@ -30,7 +30,9 @@
             <td>
                 @Html.ActionLink("Редактировать", "UpdateRequest", new { Id = item.ID })
             </td>
-            <td>(+)Удаление</td>
+            <td>
+                @Html.ActionLink("Удалить", "RemoveRequest", new { Id = item.ID })
+            </td>
         </tr>
     }
 </table>

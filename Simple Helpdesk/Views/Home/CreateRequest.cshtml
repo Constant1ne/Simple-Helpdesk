@@ -1,0 +1,49 @@
+﻿@using Simple_Helpdesk.Models
+@model Tuple<Request, RequestDescription>
+
+@{
+    ViewBag.Title = "Создание заявки";
+}
+
+<h2>Cоздать заявку</h2>
+
+@using (Html.BeginForm("Create", "CreateRequest", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Новая заявка</legend>
+
+        @*Название заявки*@        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Item1.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Item1.Name)
+            @Html.ValidationMessageFor(model => model.Item1.Name)
+        </div>
+
+        @*Статус заявки, задается по умолчанию Открыта*@
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Item2.Status)
+        </div>
+        <div class="editor-field">
+             @Html.DropDownListFor(model => model.Item2.Status, new[] { new SelectListItem() { Text = "Открыта", Value = "1" }})
+            @Html.ValidationMessageFor(model => model.Item2.Status)
+        </div>
+        
+        
+        @*Описание проблемы*@
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Item2.Description)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Item2.Description)
+            @Html.ValidationMessageFor(model => model.Item2.Description)
+        </div>
+        
+        <p>
+            <input type="submit" value="Сохранить заявку" />
+        </p>
+    </fieldset>
+}

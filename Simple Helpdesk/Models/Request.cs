@@ -49,10 +49,13 @@ namespace Simple_Helpdesk.Models
         [DataType(DataType.Date)]
         public DateTime ModificationTime { get; set; }
 
+        /// <summary>
+        /// Описание заявки или его текущего изменения
+        /// </summary>
         [Required]
-        [Display(Name = "Описание")]
+        [Display(Name = "Описание заявки")]
         [MaxLength(200, ErrorMessage = "Превышена максимальная длина записи")]
-        public string Descripion { get; set; }
+        public string Description { get; set; }
     }
 
     public enum RequestStatus

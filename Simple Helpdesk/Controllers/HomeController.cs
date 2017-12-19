@@ -10,12 +10,13 @@ namespace Simple_Helpdesk.Controllers
     public class HomeController : Controller
     {
         private RequestContext db = new RequestContext();
+        private FilteringOptions filteringOptions = new FilteringOptions();
         
         //
         // GET: /Home/
         [HttpGet]
         public ActionResult Index() {
-            var requests = db.Requests;
+            var requests = this.db.Requests;
             return View(requests.ToList());
         }
 
@@ -43,9 +44,9 @@ namespace Simple_Helpdesk.Controllers
             request.Descriptions = new List<RequestDescription>() { description }; // отношение заявка <-> описания (one-to-many)
 
             // записали в базу
-            db.Requests.Add(request);
-            db.Descriptions.Add(description);
-            db.SaveChanges();
+            this.db.Requests.Add(request);
+            this.db.Descriptions.Add(description);
+            this.db.SaveChanges();
 
             return RedirectToAction("Index");
         }
@@ -64,7 +65,7 @@ namespace Simple_Helpdesk.Controllers
         /// <param name="Id">ID заявки</param>
         [HttpGet]
         public ActionResult ChangeLog(int Id) {
-            Request request = db.Requests.Where(r => r.ID == Id).FirstOrDefault();
+            Request request = this.db.Requests.Where(r => r.ID == Id).FirstOrDefault();
             // в случае когда заявка не найдена формируем сообщение об ошибке
             if (request == null) {
                 return RedirectToAction("Error", "Home", new Error("Заявка с таким идентификатором не найдена, Id = " + Id));
@@ -78,7 +79,7 @@ namespace Simple_Helpdesk.Controllers
         /// <param name="Id">ID заявки</param>
         [HttpGet]
         public ActionResult UpdateRequest(int Id) {
-            Request found_Request = db.Requests.Where(r => r.ID == Id).FirstOrDefault();
+            Request found_Request = this.db.Requests.Where(r => r.ID == Id).FirstOrDefault();
             // ошибка - заявка не найдена
             if (found_Request == null) {
                 return RedirectToAction("Error", "Home", new Error("Заявка с таким идентификатором не найдена, Id = " + Id));
@@ -103,7 +104,7 @@ namespace Simple_Helpdesk.Controllers
         public ActionResult UpdateRequest(RequestTuple tuple) {
             // в картеже приходит только новый объект соответствующий новому состоянию заявки
             // саму заявку, для которой поменяется значение состояния необходимо достать из базы
-            Request found_Request = db.Requests.Where(r => r.ID == tuple.description.RequestID).FirstOrDefault();
+            Request found_Request = this.db.Requests.Where(r => r.ID == tuple.description.RequestID).FirstOrDefault();
             if (found_Request == null) {
                 return RedirectToAction("Error", "Home", new Error("Произошла ошибка генерации нового состояния, идентификатор редактируемой заявки не найден, Id = " + tuple.description.RequestID));
             }
@@ -111,8 +112,8 @@ namespace Simple_Helpdesk.Controllers
             tuple.description.ModificationTime = DateTime.Now;
             found_Request.Descriptions.Add(tuple.description); // добавили заявке новое состояние
 
-            db.Descriptions.Add(tuple.description); // занесли новое состояние в базу
-            db.SaveChanges();
+            this.db.Descriptions.Add(tuple.description); // занесли новое состояние в базу
+            this.db.SaveChanges();
             
             return RedirectToAction("Index");
         }
@@ -123,14 +124,19 @@ namespace Simple_Helpdesk.Controllers
         /// <param name="Id">ID заявки</param>
         [HttpGet]
         public ActionResult RemoveRequest(int Id) {
-            Request request = db.Requests.Where(r => r.ID == Id).FirstOrDefault();
+            Request request = this.db.Requests.Where(r => r.ID == Id).FirstOrDefault();
             if (request == null) {
                 return RedirectToAction("Error", "Home", new Error("Запись с таким идентификатором не найдена, Id = " + Id));
             }
             // удаляем запись из таблицы заявок
-            db.Requests.Remove(request); // из таблицы состояний соответствующие позиции удалятся автоматически (ON DELETE CASCADE)
-            db.SaveChanges();
+            this.db.Requests.Remove(request); // из таблицы состояний соответствующие позиции удалятся автоматически (ON DELETE CASCADE)
+            this.db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult FilteringOptions() {
+            return View(filteringOptions);
         }
     }
 }

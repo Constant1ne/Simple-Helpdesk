@@ -53,7 +53,7 @@ namespace Simple_Helpdesk.Models
         /// Описание заявки или его текущего изменения
         /// </summary>
         [Required]
-        [Display(Name = "Описание заявки")]
+        [Display(Name = "Описание изменения")]
         [MaxLength(200, ErrorMessage = "Превышена максимальная длина записи")]
         public string Description { get; set; }
     }

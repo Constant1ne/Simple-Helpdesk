@@ -114,6 +114,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Error.cs" />
+    <Compile Include="Models\FilteringOptions.cs" />
     <Compile Include="Models\Request.cs" />
     <Compile Include="Models\RequestContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -164,6 +165,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\ChangeLog.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\FilteringOptions.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

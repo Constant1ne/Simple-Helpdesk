@@ -1,0 +1,47 @@
+﻿@model Simple_Helpdesk.Models.FilteringOptions
+
+@{
+    ViewBag.Title = "Настройки фильтрации";
+}
+
+<h2>FilteringOptions</h2>
+
+@using (Html.BeginForm("CreateRequest", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Новая заявка</legend>
+
+        @*Название заявки*@
+        <div class="editor-label">
+            @Html.LabelFor(model => model.request.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.request.Name)
+            @Html.ValidationMessageFor(model => model.request.Name)
+        </div>
+
+        @*Статус заявки, задается по умолчанию Открыта*@
+        <div class="editor-label">
+            @Html.LabelFor(model => model.description.Status)
+        </div>
+        <div class="editor-field">
+             @Html.DropDownListFor(model => model.description.Status, new[] { new SelectListItem() { Text = "Открыта", Value = "1" }})
+            @Html.ValidationMessageFor(model => model.description.Status)
+        </div>
+        
+        
+        @*Описание проблемы*@
+        <div class="editor-label">
+            @Html.LabelFor(model => model.description.Description)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.description.Description)
+            @Html.ValidationMessageFor(model => model.description.Description)
+        </div>
+        
+        <p>
+            <input type="submit" value="Сохранить заявку" />
+        </p>
+    </fieldset>
+}

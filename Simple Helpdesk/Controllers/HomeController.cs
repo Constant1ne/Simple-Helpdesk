@@ -134,6 +134,11 @@ namespace Simple_Helpdesk.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="options"></param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult FilteringOptions(FilteringOptions options) {
             return View(options);
@@ -141,7 +146,6 @@ namespace Simple_Helpdesk.Controllers
 
         [HttpGet]
         public ActionResult FilteringOptionsApply(FilteringOptions options) {
-            //return View(this.filteringOptions);
             return RedirectToAction("Index", "Home", options);
         }
     }

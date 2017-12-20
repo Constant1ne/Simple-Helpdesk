@@ -4,44 +4,71 @@
     ViewBag.Title = "Настройки фильтрации";
 }
 
-<h2>FilteringOptions</h2>
+<h3>Настройки фильтра отображения записей заявок</h3>
 
-@using (Html.BeginForm("CreateRequest", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
+@using (Html.BeginForm("FilteringOptionsApply", "Home", FormMethod.Get, new { enctype = "multipart/form-data" })) {
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend>Новая заявка</legend>
+        <legend>Настройки фильтра</legend>
 
-        @*Название заявки*@
+        @*Отображение по статуса заявки*@
         <div class="editor-label">
-            @Html.LabelFor(model => model.request.Name)
+            @Html.LabelFor(model => model.Status)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.request.Name)
-            @Html.ValidationMessageFor(model => model.request.Name)
+            @Html.DropDownListFor(model => model.Status, new[] {
+                        new SelectListItem() { Text = "Все", Value = "0" },
+                        new SelectListItem() { Text = "Открыта", Value = "1" },
+                        new SelectListItem() { Text = "Решена", Value = "2" },
+                        new SelectListItem() { Text = "Возвращена", Value = "3" },
+                        new SelectListItem() { Text = "Закрыта", Value = "4" }})
+            @Html.ValidationMessageFor(model => model.Status)
         </div>
 
-        @*Статус заявки, задается по умолчанию Открыта*@
+        @*Была ли возвращена хоть раз*@
         <div class="editor-label">
-            @Html.LabelFor(model => model.description.Status)
+            @Html.LabelFor(model => model.isReturned)
         </div>
         <div class="editor-field">
-             @Html.DropDownListFor(model => model.description.Status, new[] { new SelectListItem() { Text = "Открыта", Value = "1" }})
-            @Html.ValidationMessageFor(model => model.description.Status)
+            @Html.RadioButtonFor(model => model.isReturned, true,  new { @checked = (Model.isReturned) ? "checked" : null} )
+            @Html.Label("Да")
+
+            @Html.RadioButtonFor(model => model.isReturned, false)
+            @Html.Label("Нет")
         </div>
-        
-        
-        @*Описание проблемы*@
+
+
+        @*Прикрути DateTime позже*@
         <div class="editor-label">
-            @Html.LabelFor(model => model.description.Description)
+            @Html.LabelFor(model => model.After)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.description.Description)
-            @Html.ValidationMessageFor(model => model.description.Description)
+            @Html.TextBoxFor(model => model.After, new { type = "datetime-local" })
+            @Html.ValidationMessageFor(model => model.After)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Before)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Before, new { type = "datetime-local" })
+            @Html.ValidationMessageFor(model => model.Before)
+        </div>
+
+        @*Тип сортировки*@
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SortByCreationTime)
+        </div>
+        <div class="editor-field">
+            @Html.RadioButtonFor(model => model.SortByCreationTime, true, new { @checked = (Model.SortByCreationTime) ? "checked" : null})
+            @Html.Label("По дате создания")
+            
+            @Html.RadioButtonFor(model => model.SortByCreationTime, false )
+            @Html.Label("По дате последнего изменения")
         </div>
         
         <p>
-            <input type="submit" value="Сохранить заявку" />
+            <input type="submit" value="Сохранить изменения" />
         </p>
     </fieldset>
 }

@@ -15,7 +15,7 @@ namespace Simple_Helpdesk.Controllers
         //
         // GET: /Home/
         [HttpGet]
-        public ActionResult Index() {
+        public ActionResult Index(FilteringOptions option) {
             var requests = this.db.Requests;
             return View(requests.ToList());
         }
@@ -135,8 +135,14 @@ namespace Simple_Helpdesk.Controllers
         }
 
         [HttpGet]
-        public ActionResult FilteringOptions() {
-            return View(filteringOptions);
+        public ActionResult FilteringOptions(FilteringOptions options) {
+            return View(options);
+        }
+
+        [HttpGet]
+        public ActionResult FilteringOptionsApply(FilteringOptions options) {
+            //return View(this.filteringOptions);
+            return RedirectToAction("Index", "Home", options);
         }
     }
 }

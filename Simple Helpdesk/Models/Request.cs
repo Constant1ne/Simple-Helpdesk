@@ -11,6 +11,9 @@ namespace Simple_Helpdesk.Models
     /// </summary>
     public class Request
     {
+        public Request() {
+            this.Descriptions = new List<RequestDescription>();
+        }
         public int ID { get; set; }
 
         [Required]
@@ -60,6 +63,7 @@ namespace Simple_Helpdesk.Models
 
     public enum RequestStatus
     {
+        Undefined = 0,
         Opened = 1, // Открыта
         Solved = 2, // Решена
         Returned = 3, // Возвращена

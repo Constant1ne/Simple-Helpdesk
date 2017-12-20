@@ -15,8 +15,35 @@ namespace Simple_Helpdesk.Controllers
         //
         // GET: /Home/
         [HttpGet]
-        public ActionResult Index(FilteringOptions option) {
-            var requests = this.db.Requests;
+        public ActionResult Index(FilteringOptions options) {
+            IEnumerable<Request> requests;
+            if (options == null) {
+                requests = db.Requests;
+                return View(requests.ToList());
+            }
+
+            // Отображение в зависимости от текущего статуса заявки
+            if (options.Status == RequestStatus.Undefined) {
+                requests = db.Requests;
+            } else {
+                requests = db.Requests.Where(request => request.Descriptions.Last().Status == options.Status);
+            }
+
+            // Отображение тех заявок, которые хоть раз возращались на доработку
+            if (options.isReturned) {
+                // Для всех заявок, у которых в истории статусов присутствует RequestStatus.Returned
+            }
+
+            if (options.After != null) {
+                // Для всех заявок созданных после
+            }
+
+            if (options.Before != null) {
+                // Для всех заявок созданных до
+            }
+
+            // отсоритовать по возрастанию дат создания или изменения
+
             return View(requests.ToList());
         }
 
@@ -41,7 +68,7 @@ namespace Simple_Helpdesk.Controllers
 
             description.ModificationTime = DateTime.Now;
             description.RequestID = request.ID; // отношение описание <->  заявка (one-to-one)
-            request.Descriptions = new List<RequestDescription>() { description }; // отношение заявка <-> описания (one-to-many)
+            request.Descriptions.Add(description); // отношение заявка <-> описания (one-to-many)
 
             // записали в базу
             this.db.Requests.Add(request);

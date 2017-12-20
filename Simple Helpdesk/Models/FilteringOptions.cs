@@ -13,14 +13,14 @@ namespace Simple_Helpdesk.Models
     public class FilteringOptions
     {
         public FilteringOptions() {
-            this.Reset();
+            this.ResetFields();
         }
         
         /// <summary>
         /// Вывести заявки у которых текущий статус равен указанному значению
         /// </summary>
         [Display(Name = "Отображать заявки в состоянии:")]
-        public RequestFilters Status { get; set; }
+        public RequestStatus Status { get; set; }
         
         /// <summary>
         /// Показывать заявки которые хоть раз были "возвращены" в обработку
@@ -50,21 +50,12 @@ namespace Simple_Helpdesk.Models
         [Display(Name = "Сортировка по дате создания или редактирования(от новых к более старым)")]
         public bool SortByCreationTime { get; set; }
 
-        public void Reset() {
-            this.Status = RequestFilters.All;
+        public void ResetFields() {
+            this.Status = RequestStatus.Undefined;
             this.isReturned = false;
             this.After = null;
             this.Before = null;
             SortByCreationTime = true;
         }
-    }
-
-    public enum RequestFilters
-    {
-        All = 0,
-        Opened = 1, // Открыта
-        Solved = 2, // Решена
-        Returned = 3, // Возвращена
-        Closed = 4 // Закрыта
     }
 }

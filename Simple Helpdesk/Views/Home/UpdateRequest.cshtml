@@ -6,7 +6,7 @@
 }
 
 @Html.Partial("ChangeLog", Model.request)
-<h3>Новые изменения</h3>
+<h3>Новое состояние заявки</h3>
 
 @using (Html.BeginForm("UpdateRequest", "Home", FormMethod.Post, new { enctype = "multipart/form-data" })) {
     @Html.ValidationSummary(true)
@@ -43,7 +43,7 @@
         </div>
 
 
-        @*Описание проблемы*@
+        @*Описание изменения*@
         <div class="editor-label">
             @Html.LabelFor(model => model.description.Description)
         </div>

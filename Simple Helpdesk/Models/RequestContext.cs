@@ -13,7 +13,7 @@ namespace Simple_Helpdesk.Models
     public class RequestContext : DbContext
     {
         // имя базы данных, если не найдена, то создается по умолчанию в /App_Data
-        public RequestContext() : base("RequestsDataBase") { }
+        public RequestContext(string baseName) : base(baseName) { }
 
         // отображения таблиц базы данных на нижеописанные классы
         public DbSet<Request> Requests { get; set; }

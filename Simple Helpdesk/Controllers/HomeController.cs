@@ -9,14 +9,14 @@ namespace Simple_Helpdesk.Controllers
 {
     public class HomeController : Controller
     {
-        private RequestContext db = new RequestContext();
+        private RequestContext db = new RequestContext("RequestsDataBase");
         private FilteringOptions filteringOptions = new FilteringOptions();
         
         //
         // GET: /Home/
         [HttpGet]
         public ActionResult Index(FilteringOptions options) {
-            IEnumerable<Request> requests;
+            IQueryable<Request> requests;
             if (options == null) {
                 requests = db.Requests;
                 return View(requests.ToList());
@@ -26,23 +26,52 @@ namespace Simple_Helpdesk.Controllers
             if (options.Status == RequestStatus.Undefined) {
                 requests = db.Requests;
             } else {
-                requests = db.Requests.Where(request => request.Descriptions.Last().Status == options.Status);
+                // Записи в зависимости от текущего статуса
+                requests = from req in db.Requests
+                           where req.Descriptions.OrderByDescending(des => des.ID).FirstOrDefault().Status == options.Status
+                           select req;
             }
 
             // Отображение тех заявок, которые хоть раз возращались на доработку
             if (options.isReturned) {
                 // Для всех заявок, у которых в истории статусов присутствует RequestStatus.Returned
+                requests = from req in requests
+                           from desc in req.Descriptions
+                           where desc.Status == RequestStatus.Returned
+                           select req;
             }
 
             if (options.After != null) {
                 // Для всех заявок созданных после
+                requests = from req in requests
+                           from desc in req.Descriptions
+                           where desc.Status == RequestStatus.Opened
+                           && desc.ModificationTime > options.After
+                           select req;
             }
 
             if (options.Before != null) {
                 // Для всех заявок созданных до
+                requests = from req in requests
+                           from desc in req.Descriptions
+                           where desc.Status == RequestStatus.Opened
+                           && desc.ModificationTime < options.Before
+                           select req;
             }
 
             // отсоритовать по возрастанию дат создания или изменения
+            if (options.SortByCreationTime) {
+                // сортировка по созданию
+                requests = from req in requests
+                           orderby req.Descriptions.OrderBy(des => des.ID).FirstOrDefault().ModificationTime descending
+                           select req;
+
+            } else {
+                // сортировка по последнему изменению
+                requests = from req in requests
+                           orderby req.Descriptions.OrderByDescending(des => des.ID).FirstOrDefault().ModificationTime descending
+                           select req;
+            }
 
             return View(requests.ToList());
         }

@@ -51,7 +51,7 @@ namespace Simple_Helpdesk.Models
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy H:mm:ss}", ApplyFormatInEditMode = true)]
         [DataType(DataType.DateTime)]
-        public DateTime? ModificationTime { get; set; }
+        public DateTime ModificationTime { get; set; }
 
         /// <summary>
         /// Описание заявки или его текущего изменения

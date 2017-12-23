@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Simple_Helpdesk.Models;
 
 namespace Simple_Helpdesk
 {
@@ -18,6 +19,11 @@ namespace Simple_Helpdesk
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            
+            using (var db = new MyRequestContext("RequestsDataBase")) {
+                db.Database.Initialize(true);
+            }
+
         }
     }
 }

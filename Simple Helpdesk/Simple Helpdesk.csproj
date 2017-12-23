@@ -116,17 +116,13 @@
     <Compile Include="Models\Error.cs" />
     <Compile Include="Models\FilteringOptions.cs" />
     <Compile Include="Models\Request.cs" />
-    <Compile Include="Models\RequestContext.cs" />
+    <Compile Include="Models\MyRequestContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Content Include="App_Data\RequestsDataBase.mdf" />
-    <Content Include="App_Data\RequestsDataBase_log.ldf">
-      <DependentUpon>RequestsDataBase.mdf</DependentUpon>
-    </Content>
     <Content Include="Global.asax" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -168,6 +164,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\FilteringOptions.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

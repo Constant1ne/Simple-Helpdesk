@@ -9,25 +9,23 @@ namespace Simple_Helpdesk.Controllers
 {
     public class HomeController : Controller
     {
-        private RequestContext db = new RequestContext("RequestsDataBase");
+        private MyRequestContext db = new MyRequestContext("RequestsDataBase");
         private FilteringOptions filteringOptions = new FilteringOptions();
         
         //
         // GET: /Home/
         [HttpGet]
-        public ActionResult Index(FilteringOptions options) {
-            IQueryable<Request> requests;
-            if (options == null) {
-                requests = db.Requests;
-                return View(requests.ToList());
+        public ActionResult Index(FilteringOptions options) {                                    
+            if (options == null) {    
+                return View(db.Requests.ToList());
             }
 
+            IQueryable<Request> requests = db.Requests;
+
             // Отображение в зависимости от текущего статуса заявки
-            if (options.Status == RequestStatus.Undefined) {
-                requests = db.Requests;
-            } else {
+            if (options.Status != RequestStatus.Undefined) {
                 // Записи в зависимости от текущего статуса
-                requests = from req in db.Requests
+                requests = from req in requests
                            where req.Descriptions.OrderByDescending(des => des.ID).FirstOrDefault().Status == options.Status
                            select req;
             }
@@ -96,12 +94,12 @@ namespace Simple_Helpdesk.Controllers
             RequestDescription description = requestTuple.description; // достали из картежа ссылку на её описание
 
             description.ModificationTime = DateTime.Now;
-            description.RequestID = request.ID; // отношение описание <->  заявка (one-to-one)
+            //description.RequestID = request.ID; // отношение описание <->  заявка (one-to-one)
             request.Descriptions.Add(description); // отношение заявка <-> описания (one-to-many)
 
             // записали в базу
             this.db.Requests.Add(request);
-            this.db.Descriptions.Add(description);
+            //this.db.Descriptions.Add(description);
             this.db.SaveChanges();
 
             return RedirectToAction("Index");

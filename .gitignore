@@ -3,4 +3,5 @@
 /Simple Helpdesk/obj
 /packages/**
 !/packages/repositories.config
-/Simple Helpdesk/App_Data
+/Simple Helpdesk/App_Data/*.mdf
+/Simple Helpdesk/App_Data/*.ldf

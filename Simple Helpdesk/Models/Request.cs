@@ -17,7 +17,7 @@ namespace Simple_Helpdesk.Models
         }
         public int ID { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Введите название заявки")]
         [Display(Name = "Название заявки")]
         [MaxLength(30, ErrorMessage = "Превышена максимальная длина записи")]
         public string Name { get; set; }
@@ -56,7 +56,7 @@ namespace Simple_Helpdesk.Models
         /// <summary>
         /// Описание заявки или его текущего изменения
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "Введите причину создания/текущего изменения статуса заявки")]
         [Display(Name = "Описание изменения")]
         [MaxLength(200, ErrorMessage = "Превышена максимальная длина записи")]
         public string Description { get; set; }

@@ -14,6 +14,10 @@ namespace Simple_Helpdesk.Controllers
         
         //
         // GET: /Home/
+        /// <summary>
+        /// Главная страница. Таблица с записями.
+        /// </summary>
+        /// <param name="options">Фильтры с параметрами для выборки записей из базы</param>
         [HttpGet]
         public ActionResult Index(FilteringOptions options) {                                    
             if (options == null) {    
@@ -90,6 +94,9 @@ namespace Simple_Helpdesk.Controllers
         /// <param name="requestTuple"> картеж состоящий из заявки и её текущего статуса</param>
         [HttpPost]
         public ActionResult CreateRequest(RequestTuple requestTuple) {
+            if (!ModelState.IsValid) { // проверили корректность ввода
+                return View();
+            }
             Request request = requestTuple.request; // достали из картежа ссылку на заявку
             RequestDescription description = requestTuple.description; // достали из картежа ссылку на её описание
 
@@ -99,7 +106,6 @@ namespace Simple_Helpdesk.Controllers
 
             // записали в базу
             this.db.Requests.Add(request);
-            //this.db.Descriptions.Add(description);
             this.db.SaveChanges();
 
             return RedirectToAction("Index");
@@ -156,6 +162,9 @@ namespace Simple_Helpdesk.Controllers
         /// <param name="tuple">картеж состоящий из заявки и её текущего статуса</param>
         [HttpPost]
         public ActionResult UpdateRequest(RequestTuple tuple) {
+            if (!ModelState.IsValid) {
+                return RedirectToAction("UpdateRequest", "Home", new { Id = tuple.description.RequestID } );
+            }
             // в картеже приходит только новый объект соответствующий новому состоянию заявки
             // саму заявку, для которой поменяется значение состояния необходимо достать из базы
             Request found_Request = this.db.Requests.Where(r => r.ID == tuple.description.RequestID).FirstOrDefault();
@@ -189,7 +198,7 @@ namespace Simple_Helpdesk.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Форма с настройками выборки из базы
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>

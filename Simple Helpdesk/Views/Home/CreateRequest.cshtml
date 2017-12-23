@@ -9,8 +9,8 @@
 
 @using (Html.BeginForm("CreateRequest", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    @Html.ValidationSummary(true)
     <fieldset>
+        @Html.ValidationSummary()
         <legend>Новая заявка</legend>
 
         @*Название заявки*@

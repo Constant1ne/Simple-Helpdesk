@@ -46,9 +46,10 @@
 
 	NamespaceName = "DataModels";
 
-	LoadSqlServerMetadata("MyServer", "MyDatabase", "User", "Password");
+//	LoadSqlServerMetadata("MyServer", "MyDatabase", "User", "Password");
 //	LoadSqlServerMetadata(".", "MyDatabase"); // Integrated Security
 //	LoadSqlServerMetadata(string connectionString);
-
+//  str = "Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog={dbName};Integrated Security = True;Connection Timeout=20;"
+	LoadSqlServerMetadata("Data Source=(LocalDB)\\MSSQLLocalDB;Initial Catalog=Claims;Integrated Security = True;Connection Timeout=20;");
 	GenerateModel();
 #>

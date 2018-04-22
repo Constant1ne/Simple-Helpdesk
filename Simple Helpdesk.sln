@@ -3,7 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VdkDemo.Domain", "VdkDemo.Domain\VdkDemo.Domain.csproj", "{05BA849B-7B0D-485D-850B-EF01620205AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "TestProject\TestProject.csproj", "{C8873AD7-6297-49BF-8567-A7F407A5E396}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{05BA849B-7B0D-485D-850B-EF01620205AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05BA849B-7B0D-485D-850B-EF01620205AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05BA849B-7B0D-485D-850B-EF01620205AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05BA849B-7B0D-485D-850B-EF01620205AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8873AD7-6297-49BF-8567-A7F407A5E396}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8873AD7-6297-49BF-8567-A7F407A5E396}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8873AD7-6297-49BF-8567-A7F407A5E396}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8873AD7-6297-49BF-8567-A7F407A5E396}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection

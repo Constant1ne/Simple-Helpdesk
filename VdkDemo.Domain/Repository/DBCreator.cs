@@ -16,6 +16,7 @@ namespace VdkDemo.Domain.Repository
         private string filePath;
         private string dbName;
 
+        public string ConnStrToDB { get { return connToDatabase; } }
         public DBCreator(string dbName) {
             this.dbName = dbName;
             filePath = Directory.GetCurrentDirectory() + $"\\{dbName}";

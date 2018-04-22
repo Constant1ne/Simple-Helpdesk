@@ -32,13 +32,18 @@ namespace DataModels
 			InitDataContext();
 		}
 
-		public ClaimsDB(string configuration)
+		/*public ClaimsDB(string configuration)
 			: base(configuration)
 		{
 			InitDataContext();
-		}
+		}*/
 
-		partial void InitDataContext();
+        public ClaimsDB(string connectionStr)
+            : base(ProviderName.SqlServer, connectionStr) {
+            InitDataContext();
+        }
+
+        partial void InitDataContext();
 
 		#region FreeTextTable
 
